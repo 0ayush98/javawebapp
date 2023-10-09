@@ -28,10 +28,10 @@
 			</c:if>
 
 			<c:if test="${empty msg}">
-				Welcome Welcome!
+				Welcome
 			</c:if>
 		<p>
-			<a class="btn btn-secondary btn-lg" href="#" role="button">Learn more</a>
+			<a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
 		</p>
 	</div>
 </div>
