@@ -60,7 +60,7 @@ pipeline {
         stage('Deploy webAPP in QA/Test Env') {
             steps {
                
-               sshagent(['QA_ENVV']) {
+               sshagent(['QAT_ENVV']) {
     
                     sh "ssh  -o  StrictHostKeyChecking=no ec2-user@13.233.118.132 sudo docker rm -f myjavaapp"
                     sh "ssh ec2-user@13.233.118.132 sudo docker run  -d  -p  8008:8080 --name myjavaapp   ayush98/javawebapp:v${BUILD_ID}"
@@ -116,7 +116,7 @@ pipeline {
         stage('Deploy webAPP in Prod Env') {
             steps {
                
-               sshagent(['QA_ENVV']) {
+               sshagent(['QAT_ENVV']) {
     
                      sh "ssh  -o  StrictHostKeyChecking=no ec2-user@13.127.46.180 sudo docker rm -f myjavaapp"
                     sh "ssh ec2-user@13.127.46.180 sudo docker run  -d  -p  8005:8080 --name myjavaapp   ayush98/javawebapp:v${BUILD_ID}"
