@@ -24,14 +24,14 @@
 		<h1>${title}</h1>
 		<p>
 			<c:if test="${not empty msg}">
-				Hello ${msg}
+				DEMO WEB APP  ${msg}
 			</c:if>
 
 			<c:if test="${empty msg}">
 				Welcome Welcome!
 			</c:if>
 		<p>
-			<a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+			<a class="btn btn-secondary btn-lg" href="#" role="button">Learn more</a>
 		</p>
 	</div>
 </div>
@@ -40,15 +40,15 @@
 
 	<div class="row">
 		<div class="col-md-8">
-			<h2>Welcome to LinuxWorld, India , in fully automated jenkins</h2>
-			<h3>Contact training@lwindia.com or mob 9351009002</h3>
+			<h2>Welcome to  Dummy JAVA APP , India ,  It is fully automated jenkins</h2>
+			<h3>Contact: 9351009002</h3>
 		</div>	
 	</div>
 
 
 	<hr>
 	<footer>
-		<p>&copy; LW 2022</p>
+		<p>&copy; AYUSH SHARMA 2023</p>
 	</footer>
 </div>
 
