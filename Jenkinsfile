@@ -24,7 +24,7 @@ pipeline {
         
         stage('Build Docker OWN image') {
             steps {
-                sh "sudo docker build -t  ayush98/javawebapp:v${BUILD_ID}  ."
+                sh "sudo docker build -t  ayush98/webappjava:v${BUILD_ID}  ."
                 //sh 'whoami'
             }
             
@@ -41,16 +41,16 @@ pipeline {
                
 
                
-               sh "sudo docker push ayush98/javawebapp:v${BUILD_ID}"
+               sh "sudo docker push ayush98/webappjava:v${BUILD_ID}"
             }
             
         }
         
         
-        stage('Deploy webAPP in DEV Env') {
+        stage('Deploy webApp in DEV Env') {
             steps {
                 sh 'sudo docker rm -f myjavaapp'
-                sh "sudo docker run  -d  -p  8080:8080 --name myjavaapp   ayush98/javawebapp:v${BUILD_ID}"
+                sh "sudo docker run  -d  -p  8080:8080 --name myjavaapp   ayush98/webappjava:v${BUILD_ID}"
                 //sh 'whoami'
             }
             
@@ -60,10 +60,10 @@ pipeline {
         stage('Deploy webAPP in QA/Test Env') {
             steps {
                
-               sshagent(['QAT_ENVV']) {
+               sshagent(['QAT_ENV']) {
     
-                    sh "ssh  -o  StrictHostKeyChecking=no ec2-user@13.233.118.132 sudo docker rm -f myjavaapp"
-                    sh "ssh ec2-user@13.233.118.132 sudo docker run  -d  -p  8008:8080 --name myjavaapp   ayush98/javawebapp:v${BUILD_ID}"
+                    sh "ssh  -o  StrictHostKeyChecking=no ec2-user@15.206.169.84 sudo docker rm -f myjavaapp"
+                    sh "ssh ec2-user@15.206.169.84 sudo docker run  -d  -p  8008:8080 --name myjavaapp   ayush98/webappjava:v${BUILD_ID}"
                 }
 
             }
@@ -77,10 +77,10 @@ pipeline {
          stage('QAT Test') {
             steps {
                 
-               // sh 'curl --silent http://13.233.118.132:8080/java-web-app/ |  grep India'
+               // sh 'curl --silent http://15.206.169.84:8080/java-web-app/ |  grep India'
                 
                 retry(10) {
-                    sh 'curl --silent http://13.233.118.132:8008/java-web-app/ |  grep India'
+                    sh 'curl --silent http://15.206.169.84:8008/java-web-app/ |  grep India'
                 }
             
                
@@ -116,10 +116,10 @@ pipeline {
         stage('Deploy webAPP in Prod Env') {
             steps {
                
-               sshagent(['QAT_ENVV']) {
+               sshagent(['QAT_ENV']) {
     
-                     sh "ssh  -o  StrictHostKeyChecking=no ec2-user@13.127.46.180 sudo docker rm -f myjavaapp"
-                    sh "ssh ec2-user@13.127.46.180 sudo docker run  -d  -p  8005:8080 --name myjavaapp   ayush98/javawebapp:v${BUILD_ID}"
+                     sh "ssh  -o  StrictHostKeyChecking=no ec2-user@15.206.124.38 sudo docker rm -f myjavaapp"
+                    sh "ssh ec2-user@15.206.124.38 sudo docker run  -d  -p  8005:8080 --name myjavaapp   ayush98/webappjava:v${BUILD_ID}"
                     
                 }
 
