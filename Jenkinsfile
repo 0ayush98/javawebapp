@@ -117,9 +117,14 @@ pipeline {
             steps {
                
                sshagent(['QAT_ENV']) {
-    
-                     sh "ssh  -o  StrictHostKeyChecking=no ec2-user@15.206.124.38 sudo docker rm -f myjavaapp"
-                    sh "ssh ec2-user@15.206.124.38 sudo docker run  -d  -p  8005:8080 --name myjavaapp   ayush98/webappjava:v${BUILD_ID}"
+                    
+                     sh "ssh  -o  StrictHostKeyChecking=no ec2-user@15.206.124.38  sudo kubectl  delete    deployment myjavawebapp"
+                 sh "ssh  ec2-user@15.206.124.38  sudo kubectl  create    deployment myjavawebapp  --image=ayush98/webappjava:v${BUILD_ID}"                    
+
+             sh "ssh ec2-user@13.232.250.244 sudo wget  https://raw.githubusercontent.com/0ayush98/javawebapp/master/webappsvc.yml "
+        	 sh "ssh ec2-user@13.232.250.244 sudo kubectl  apply -f webappsvc.yml"
+              sh "ssh ec2-user@13.232.250.244 sudo kubectl  scale deployment myjavawebapp --replicas=5"
+
                     
                 }
 
