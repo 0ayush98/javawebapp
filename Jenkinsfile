@@ -118,12 +118,12 @@ pipeline {
                
                sshagent(['QAT_ENV']) {
                     
-                     sh "ssh  -o  StrictHostKeyChecking=no ec2-user@15.206.124.38  sudo kubectl  delete    deployment myjavawebapp"
-                 sh "ssh  ec2-user@15.206.124.38  sudo kubectl  create    deployment myjavawebapp  --image=ayush98/webappjava:v${BUILD_ID}"                    
+                     sh "ssh  -o  StrictHostKeyChecking=no ec2-user@15.206.124.38   kubectl  delete    deployment myjavawebapp"
+                 sh "ssh  ec2-user@15.206.124.38   kubectl  create    deployment myjavawebapp  --image=ayush98/webappjava:v${BUILD_ID}"                    
 
              sh "ssh ec2-user@15.206.124.38 sudo wget  https://raw.githubusercontent.com/0ayush98/javawebapp/master/webappsvc.yml "
-        	 sh "ssh ec2-user@15.206.124.38  sudo kubectl  apply -f webappsvc.yml"
-              sh "ssh ec2-user@15.206.124.38 sudo kubectl  scale deployment myjavawebapp --replicas=5"
+        	 sh "ssh ec2-user@15.206.124.38  kubectl  apply -f webappsvc.yml"
+              sh "ssh ec2-user@15.206.124.38  kubectl  scale deployment myjavawebapp --replicas=5"
 
                     
                 }
